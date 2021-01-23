@@ -4,6 +4,7 @@ import { Router } from "express";
 import { randomBytes } from "crypto";
 import { DOMAIN } from "../constants";
 import sendMail from "../functions/email-sender";
+import { userAuth } from "../middlewares/auth-guard";
 import Validator from "../middlewares/validator-middleware";
 import { AuthenticateValidations, RegisterValidations } from "../validators";
 
@@ -101,7 +102,7 @@ router.get("/verify-now/:verificationCode", async (req, res) => {
 });
 
 /**
- * @description To aiuthenticate an user and get auth token
+ * @description To authenticate an user and get auth token
  * @api /users/api/authenticate
  * @access PUBLIC
  * @type POST
@@ -141,5 +142,18 @@ router.post(
     }
   }
 );
+
+/**
+ * @description To get the authenticated user's profile
+ * @api /users/api/authenticate
+ * @access Private
+ * @type GET
+ */
+router.get("/api/authenticate", userAuth, async (req, res) => {
+  console.log("REQ", req);
+  return res.status(200).json({
+    user: req.user,
+  });
+});
 
 export default router;
