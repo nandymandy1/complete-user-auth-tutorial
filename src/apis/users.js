@@ -150,7 +150,6 @@ router.post(
  * @type GET
  */
 router.get("/api/authenticate", userAuth, async (req, res) => {
-  console.log("REQ", req);
   return res.status(200).json({
     user: req.user,
   });
