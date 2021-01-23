@@ -43,7 +43,7 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.pre("save", async function (name) {
+UserSchema.pre("save", async function (next) {
   let user = this;
   if (!user.isModified("password")) return next();
   user.password = await hash(user.password, 10);
@@ -70,7 +70,7 @@ UserSchema.methods.generatePasswordReset = function () {
 };
 
 UserSchema.methods.getUserInfo = function () {
-  return pick(this, ["_id", "username", "email", "name"]);
+  return pick(this, ["_id", "username", "email", "name", "verified"]);
 };
 
 const User = model("users", UserSchema);
