@@ -11,6 +11,7 @@ import { DB, PORT } from "./constants";
 
 // Router imports
 import userApis from "./apis/users";
+import postApis from "./apis/posts";
 import profileApis from "./apis/profiles";
 
 // Import passport middleware
@@ -27,6 +28,7 @@ app.use(express.static(join(__dirname, "./uploads")));
 
 // Inject Sub router and apis
 app.use("/users", userApis);
+app.use("/posts", postApis);
 app.use("/profiles", profileApis);
 
 const main = async () => {
